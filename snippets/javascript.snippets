@@ -1,7 +1,7 @@
 # Prototype
 snippet proto
 	${1:class_name}.prototype.${2:method_name} =
-	function(${3:first_argument}) {
+	function (${3:first_argument}) {
 		${4:// body...}
 	};
 # Function
@@ -11,14 +11,14 @@ snippet fun
 	}
 # Anonymous Function
 snippet f
-	function(${1}) {${2}};
+	function (${1}) {${2}};
 # if
 snippet if
-	if (${1:true}) {${2}};
+	if (${1:true}) {${2}}
 # if ... else
 snippet ife
 	if (${1:true}) {${2}}
-	else{${3}};
+	else{${3}}
 # tertiary conditional
 snippet t
 	${1:/* condition */} ? ${2:a} : ${3:b}
@@ -60,7 +60,7 @@ snippet do
 	} while (${1:/* condition */});
 # Object Method
 snippet :f
-	${1:method_name}: function(${2:attribute}) {
+	${1:method_name}: function (${2:attribute}) {
 		${4}
 	}${3:,}
 # setTimeout function
@@ -72,3 +72,9 @@ snippet get
 # Get Element
 snippet gett
 	getElementBy${1:Id}('${2}')${3}
+# TAP test
+snippet test
+	test(${1:test_name}, function (t) {
+		${2:// body...}
+		t.end();
+	});

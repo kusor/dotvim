@@ -1,7 +1,7 @@
 " Example Vim graphical configuration.
 " Copy to ~/.gvimrc or ~/_gvimrc.
 
-set guifont=Monaco:h12            " Font family and font size.
+set guifont=Monaco:h14            " Font family and font size.
 set antialias                     " MacVim: smooth fonts.
 set encoding=utf-8                " Use UTF-8 everywhere.
 set guioptions-=T                 " Hide toolbar.
@@ -14,4 +14,6 @@ set lines=50 columns=140          " Window dimensions.
 colorscheme railscasts
 
 let NERDTreeWinSize=40
+
+autocmd BufNewFile,BufRead *.json set ft=javascript
 

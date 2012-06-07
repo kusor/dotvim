@@ -88,7 +88,7 @@ set foldlevel=100
 
 function! JavaScriptFold()
     setl foldmethod=syntax
-    setl foldlevelstart=1
+    setl foldlevelstart=20
     syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
 
     function! FoldText()
@@ -99,3 +99,9 @@ endfunction
 
 au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
+
+autocmd BufNewFile,BufRead *.json set ft=javascript
+
+let $JS_CMD='node'
+
+autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4

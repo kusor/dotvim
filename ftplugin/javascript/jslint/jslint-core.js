@@ -4778,7 +4778,7 @@ loop:   for (;;) {
         if (i) {
             adjacent(token, nexttoken);
         } else {
-            //nonadjacent(token, nexttoken);
+            nonadjacent(token, nexttoken);
         }
         doFunction(i);
         if (funct['(loopage)']) {
