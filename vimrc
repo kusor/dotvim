@@ -105,3 +105,9 @@ autocmd BufNewFile,BufRead *.json set ft=javascript
 let $JS_CMD='node'
 
 autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4
+
+" Allow per directory configuration using .exrc/.vimrc files:
+set exrc
+" Possibly should enable it to avoid any directory configuration file
+" writing to shell.
+" set secure
