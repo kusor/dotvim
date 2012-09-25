@@ -1,3 +1,3 @@
-/*jslint white: true, devel: true, safe: false, onevar: true, undef: true, eqeqeq: true, plusplus: true, bitwise: true, adsafe: false, indent: 4, forin: true */
+/*jslint white: true, devel: true, safe: false, onevar: false, undef: true, eqeqeq: true, plusplus: true, bitwise: true, adsafe: false, indent: 4, forin: true */
 
 /*global jQuery, $, exports, require, process, __dirname, __filename, module, global, setTimeout, setInterval, clearTimeout, clearInterval, Buffer */
