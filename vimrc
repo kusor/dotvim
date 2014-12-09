@@ -10,6 +10,8 @@ runtime macros/matchit.vim        " Load the matchit plugin.
 
 set showcmd                       " Display incomplete commands.
 set showmode                      " Display the mode you're in.
+set list                          " Display line-end chars.
+set listchars=tab:▸\ ,eol:¬       " TextMate like tabs and end of lines.
 
 set backspace=indent,eol,start    " Intuitive backspacing.
 
@@ -89,7 +91,7 @@ set foldlevel=100
 function! JavaScriptFold()
     setl foldmethod=syntax
     setl foldlevelstart=20
-    syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
+    syn region foldBraces start=/{$/ end=/^\s*}/ transparent fold keepend extend
 
     function! FoldText()
         return substitute(getline(v:foldstart), '{.*', '{...}', '')
@@ -101,6 +103,7 @@ au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
 
 autocmd BufNewFile,BufRead *.json set ft=javascript
+autocmd BufNewFile,BufRead *.restdown set ft=markdown
 
 let $JS_CMD='node'
 
@@ -111,3 +114,6 @@ set exrc
 " Possibly should enable it to avoid any directory configuration file
 " writing to shell.
 " set secure
+autocmd filetype make setlocal noexpandtab
+" Write current buffer to scrum server
+command Scrum execute "%!/Users/kusorbox/Documents/Joyent/engdoc/roadmap/bin/scrum -u pedro -f"
