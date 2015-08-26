@@ -1,6 +1,9 @@
 " Example Vim configuration.
 " Copy or symlink to ~/.vimrc or ~/_vimrc.
 
+" pathogen (https://github.com/tpope/vim-pathogen).
+execute pathogen#infect()
+
 set nocompatible                  " Must come first because it changes other options.
 
 syntax enable                     " Turn on syntax highlighting.
@@ -114,6 +117,7 @@ set exrc
 " Possibly should enable it to avoid any directory configuration file
 " writing to shell.
 " set secure
-autocmd filetype make setlocal noexpandtab
+autocmd filetype make setlocal noexpandtab ts=8 sts=8 sw=8
+autocmd filetype make set noexpandtab ts=8 sts=8 sw=8
 " Write current buffer to scrum server
 command Scrum execute "%!/Users/kusorbox/Documents/Joyent/engdoc/roadmap/bin/scrum -u pedro -f"
