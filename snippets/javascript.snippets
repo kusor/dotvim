@@ -78,3 +78,10 @@ snippet test
 		${2:// body...}
 		t.end();
 	});
+snippet exec
+	exec(${1:command}, function (err, stdout, stderr) {
+		t.ifError(err, 'Execution error');
+		t.equal(stderr, '', 'Empty stderr');
+		${2:// body...}
+		t.end();
+	});

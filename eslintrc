@@ -1,0 +1,37 @@
+{
+    "plugins": [ "joyent" ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:joyent/style",
+        "plugin:joyent/lint"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "script",
+        "ecmaFeatures": {
+        }
+    },
+    "env": {
+        "node": true
+    },
+    "rules": {
+        "spaced-comment": ["error", "always", { "exceptions": ["-", "+"] }],
+        // Local rule configuration can go here 
+        // "spaced-comment": ["error", "never"],
+        // "max-len": ["error", { "ignorePattern": "\*\sJSSTYLED\s\*\/\n.*"}]
+        "no-unused-vars": [
+            "error",
+            {
+                // Track all unused identifiers
+                "vars": "all",
+                "args": "all",
+                "caughtErrors": "all",
+                // Don't warn on args that start with _, res or req
+                "argsIgnorePattern": "^(_|res|req|stdout|stderr)",
+                // Don't warn on catch or var identifiers that start with _
+                "caughtIgnorePattern": "^_",
+                "varsIgnorePattern": "^_"
+            }
+        ],
+    }
+}

@@ -105,7 +105,6 @@ endfunction
 au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
 
-autocmd BufNewFile,BufRead *.json set ft=javascript
 autocmd BufNewFile,BufRead *.restdown set ft=markdown
 
 let $JS_CMD='node'
@@ -119,5 +118,22 @@ set exrc
 " set secure
 autocmd filetype make setlocal noexpandtab ts=8 sts=8 sw=8
 autocmd filetype make set noexpandtab ts=8 sts=8 sw=8
+" JSHint (https://github.com/Shutnik/jshint2.vim)
+set runtimepath+=~/.vim/bundle/jshint2.vim/
 " Write current buffer to scrum server
-command Scrum execute "%!/Users/kusorbox/Documents/Joyent/engdoc/roadmap/bin/scrum -u pedro -f"
+command Scrum execute "%!/Users/pedropc/work/engdoc/roadmap/bin/scrum -u pedro -f"
+" Old JSHint stuff
+" let jshint2_read = 1
+" let jshint2_save = 1
+" let jshint2_confirm = 0
+
+" Syntastic configuration:
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers=['eslint']
