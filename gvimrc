@@ -15,7 +15,5 @@ colorscheme railscasts
 
 let NERDTreeWinSize=40
 
-autocmd BufNewFile,BufRead *.json set ft=javascript
-
 nmap <leader>fs :so ~/.gvimrc.fullscreen<cr>
 nmap <leader>sf :so ~/.gvimrc<cr>
