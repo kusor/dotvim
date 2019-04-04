@@ -28,7 +28,7 @@
                 "args": "all",
                 "caughtErrors": "all",
                 // Don't warn on args that start with _, res or req
-                "argsIgnorePattern": "^(_|res|req|stdout|stderr)",
+                "argsIgnorePattern": "^(_|res|req|stdout|stderr|opts|args|cb)",
                 // Don't warn on catch or var identifiers that start with _
                 "caughtIgnorePattern": "^_",
                 "varsIgnorePattern": "^_"

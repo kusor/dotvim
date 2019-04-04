@@ -1,3 +1,0 @@
-[submodule "bundle/tagbar"]
-	path = bundle/tagbar
-	url = http://github.com/majutsushi/tagbar.git
