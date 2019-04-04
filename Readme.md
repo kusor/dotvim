@@ -10,11 +10,4 @@ Note this requires eslint-plugin-joyent installed locally to work:
 
         npm install eslint-plugin-joyent --global
 
-And `syntastic` vim plugin:
-
-        https://github.com/vim-syntastic/syntastic.git
-
-Other plugins installed with pathogen:
-
-        https://github.com/fatih/vim-go.git
-        
+Run :PackUpdate once vimrc has been sourced.
