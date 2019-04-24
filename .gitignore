@@ -5,3 +5,4 @@ tmp/*
 .DS_Store
 bundle/*
 pack/*
+init.vim
