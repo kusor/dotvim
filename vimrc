@@ -72,6 +72,8 @@ colorscheme gruvbox
 set guifont=Monaco:h14            " Font family and font size.
 set encoding=utf-8                " Use UTF-8 everywhere.
 
+" minpac to handle itself:
+call minpac#add('k-takata/minpac', {'type': 'opt'})
 call minpac#add('vim-syntastic/syntastic')
 call minpac#add('scrooloose/nerdtree')
 call minpac#add('w0rp/ale')
