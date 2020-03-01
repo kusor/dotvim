@@ -25,7 +25,7 @@ set title                         " Set the terminal's title
 set showcmd                       " Display incomplete commands.
 set showmode                      " Display the mode you're in.
 set list                          " Display line-end chars.
-set listchars=tab:▸\ ,eol:¬       " TextMate like tabs and end of lines.
+set listchars=tab:▸\ ,eol:¬,trail:¶       " TextMate like tabs and end of lines. Highlight extra whitespace
 set backspace=indent,eol,start    " Intuitive backspacing.
 set hidden                        " Handle multiple buffers better.
 set wildmenu                      " Enhanced command line completion.
@@ -57,6 +57,7 @@ au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
 
 autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4
+autocmd FileType markdown setlocal expandtab ts=4 sts=4 sw=4
 
 " Handle plugins as packages with minpac
 packadd minpac
@@ -85,8 +86,15 @@ call minpac#add('vim-scripts/AutoClose')
 call minpac#add('MarcWeber/vim-addon-mw-utils')
 call minpac#add('tomtom/tlib_vim')
 call minpac#add('garbas/vim-snipmate')
-
 call minpac#add('honza/vim-snippets', {'type': 'opt'})
+" Change <tab> to <ctrl+j> to trigger snippets, since the
+" tab is used by YCM
+imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
+smap <C-J> <Plug>snipMateNextOrTrigger
+
+call minpac#add('tpope/vim-fugitive')
+
+call minpac#add('Valloric/YouCompleteMe')
 
 " Syntastic
 set statusline+=%#warningmsg#
@@ -107,10 +115,31 @@ let g:ale_fixers = {
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
 
-let g:ale_fix_on_save = 1
+" This automatically fix stuff
+"let g:ale_fix_on_save = 1
+
+" YOU Complete Me
+" Start autocompletion after 4 chars
+let g:ycm_min_num_of_chars_for_completion = 4
+let g:ycm_min_num_identifier_candidate_chars = 4
+let g:ycm_enable_diagnostic_highlighting = 0
+" Don't show YCM's preview window [ I find it really annoying ]
+set completeopt-=preview
+let g:ycm_add_preview_to_completeopt = 0
+" It is the default but I keep forgetting:
+let g:ycm_key_list_stop_completion = ['<C-y>']
+
+" Handlebars.js syntax:
+call minpac#add('mustache/vim-mustache-handlebars')
 
 " rust specific
 let g:rustfmt_autosave = 1
+
+" Taken from https://github.com/rust-lang/rust.vim/issues/130
+let g:syntastic_rust_rustc_exe = 'cargo check'
+let g:syntastic_rust_rustc_fname = ''
+let g:syntastic_rust_rustc_args = '--'
+let g:syntastic_rust_checkers = ['rustc']
 
 " Write current buffer to scrum server
 command! Scrum execute "%!/Users/pedropc/work/engdoc/roadmap/bin/scrum -u pedro -f"
