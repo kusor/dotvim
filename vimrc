@@ -53,11 +53,24 @@ function! JavaScriptFold()
     setl foldtext=FoldText()
 endfunction
 
+" Check if files have been modified externally
+if ! exists("g:CheckUpdateStarted")
+    let g:CheckUpdateStarted=1
+    call timer_start(1,'CheckUpdate')
+endif
+
+function! CheckUpdate(timer)
+    silent! checktime
+    call timer_start(1000,'CheckUpdate')
+endfunction
+
 au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
 
 autocmd FileType javascript setlocal expandtab shiftwidth=4 tabstop=4
 autocmd FileType markdown setlocal expandtab ts=4 sts=4 sw=4
+autocmd FileType javascriptreact setlocal expandtab ts=4 sts=4 sw=4
+autocmd FileType json setlocal expandtab ts=4 sts=4 sw=4
 
 " Handle plugins as packages with minpac
 packadd minpac
@@ -69,7 +82,7 @@ command! PackClean call minpac#clean()
 " call minpac#add(gh-user/gh-plugin-repo)
 call minpac#add('morhetz/gruvbox')
 colorscheme gruvbox
-
+"colorscheme atom
 set guifont=Monaco:h14            " Font family and font size.
 set encoding=utf-8                " Use UTF-8 everywhere.
 
@@ -95,6 +108,7 @@ smap <C-J> <Plug>snipMateNextOrTrigger
 call minpac#add('tpope/vim-fugitive')
 
 call minpac#add('Valloric/YouCompleteMe')
+call minpac#add('fatih/vim-go')
 
 " Syntastic
 set statusline+=%#warningmsg#
@@ -141,5 +155,21 @@ let g:syntastic_rust_rustc_fname = ''
 let g:syntastic_rust_rustc_args = '--'
 let g:syntastic_rust_checkers = ['rustc']
 
+" Go lang
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 0
+let g:go_fmt_command = "goimports"
+let g:go_auto_type_info = 1
+
 " Write current buffer to scrum server
 command! Scrum execute "%!/Users/pedropc/work/engdoc/roadmap/bin/scrum -u pedro -f"
+
+" Markdown:
+let g:markdown_fenced_languages = ['javascript', 'python', 'bash=sh', 'go', 'ruby', 'rust']
