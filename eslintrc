@@ -6,7 +6,7 @@
         "plugin:joyent/lint"
     ],
     "parserOptions": {
-        "ecmaVersion": 6,
+        "ecmaVersion": 2018,
         "sourceType": "script",
         "ecmaFeatures": {
         }
@@ -34,5 +34,6 @@
                 "varsIgnorePattern": "^_"
             }
         ],
+        "semi": 0
     }
 }
