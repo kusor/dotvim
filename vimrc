@@ -102,7 +102,10 @@ call minpac#add('vim-scripts/AutoClose')
 
 call minpac#add('MarcWeber/vim-addon-mw-utils')
 call minpac#add('tomtom/tlib_vim')
+
 call minpac#add('garbas/vim-snipmate')
+let g:snipMate = { 'snippet_version' : 0 }
+
 call minpac#add('honza/vim-snippets', {'type': 'opt'})
 " Change <tab> to <ctrl+j> to trigger snippets, since the
 " tab is used by YCM
@@ -122,102 +125,62 @@ call minpac#add('jparise/vim-graphql')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('vim-airline/vim-airline-themes')
 
-call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
 
-call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
+if has('nvim')
+  call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
 
-" LSP support
-call minpac#add('neovim/nvim-lspconfig')
-:packadd nvim-lspconfig
-call minpac#add('tjdevries/lsp_extensions.nvim')
-:packadd lsp_extensions.nvim
-call minpac#add('nvim-lua/completion-nvim')
-:packadd completion-nvim
-call minpac#add('nvim-lua/lsp-status.nvim')
-:packadd lsp-status.nvim
+  call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
 
-" Telescope
-call minpac#add('nvim-lua/popup.nvim')
-call minpac#add('nvim-lua/plenary.nvim')
-call minpac#add('nvim-telescope/telescope.nvim')
+  " LSP support
+  call minpac#add('neovim/nvim-lspconfig')
+  packadd nvim-lspconfig
+  call minpac#add('tjdevries/lsp_extensions.nvim')
+  packadd lsp_extensions.nvim
+  call minpac#add('nvim-lua/completion-nvim')
+  packadd completion-nvim
+  call minpac#add('nvim-lua/lsp-status.nvim')
+  packadd lsp-status.nvim
 
-" Set completeopt to have a better completion experience
-" :help completeopt
-" menuone: popup even when there's only one match
-" noinsert: Do not insert text until a selection is made
-" noselect: Do not select, force user to select one from the menu
-set completeopt=menuone,noinsert,noselect
+  " Telescope
+  call minpac#add('nvim-lua/popup.nvim')
+  packadd popup.nvim
+  call minpac#add('nvim-lua/plenary.nvim')
+  packadd plenary.nvim
+  call minpac#add('nvim-telescope/telescope-fzy-native.nvim')
+  call minpac#add('nvim-telescope/telescope.nvim')
+  " TreeSitter
+  call minpac#add('nvim-treesitter/nvim-treesitter')
+  " This would run updates everytime nvim runs. Let's just run manually
+  " instead
+  " call minpac#add('nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'})
+  packadd nvim-treesitter
+  lua require('plugins.treesitter')
+  " Telescope.nvim, see lua/plugins/telescope.lua
+  lua require('plugins.telescope')
 
-" Avoid showing extra messages when using completion
-set shortmess+=c
+  " Set completeopt to have a better completion experience
+  " :help completeopt
+  " menuone: popup even when there's only one match
+  " noinsert: Do not insert text until a selection is made
+  " noselect: Do not select, force user to select one from the menu
+  set completeopt=menuone,noinsert,noselect
 
-" Configure LSP
-" https://github.com/neovim/nvim-lspconfig#rust_analyzer
-lua <<EOF
--- nvim_lsp object
-local nvim_lsp = require'lspconfig'
-local lsp_status = require'lsp-status'
--- function to attach completion
--- when setting up lsp
-local on_attach = function(client)
-    require'completion'.on_attach(client)
-    lsp_status.on_attach(client)
+  " Avoid showing extra messages when using completion
+  set shortmess+=c
+
+  " Configure LSP
+  lua require('lsp')
+
+  sign define LspDiagnosticsErrorSign text=❌  linehl= texthl=LspDiagnosticsErrorSign numhl=
+  sign define LspDiagnosticsWarningSign text=⚠️   linehl= texthl=LspDiagnosticsWarningSign numhl=
+  sign define LspDiagnosticsInformationSign text=ℹ️  linehl= texthl=LspDiagnosticsInformationSign numhl=
+  sign define LspDiagnosticsHintSign text=⁉️  linehl= texthl=LspDiagnosticsHintSign numhl=
+
+  let g:diagnostic_enable_virtual_text = 1
+  " Do not show diagnostic in insert mode
+  let g:diagnostic_insert_delay = 1
+  " End of LSP
 end
-
--- Enable rust_analyzer
-nvim_lsp.rust_analyzer.setup({
-    on_attach=on_attach,
-    capabilities=lsp_status.capabilities
-})
--- GOPLS
-nvim_lsp.gopls.setup({
-    on_attach=on_attach,
-    capabilities=lsp_status.capabilities,
-    cmd = {"gopls", "serve"},
-    settings = {
-      gopls = {
-        analyses = {
-          unusedparams = true,
-        },
-        staticcheck = true,
-        experimentalWorkspaceModule = true,
-      },
-    },
-})
-nvim_lsp.html.setup({
-    on_attach=on_attach,
-    capabilities=lsp_status.capabilities
-})
-nvim_lsp.tsserver.setup({
-    on_attach=on_attach;
-    root_dir=nvim_lsp.util.root_pattern("package.json", "tsconfig.json", ".git", ".eslintrc");
-    capabilities=lsp_status.capabilities;
-})
-nvim_lsp.terraformls.setup({
-    on_attach=on_attach,
-    capabilities=lsp_status.capabilities
-})
-
-nvim_lsp.graphql.setup({
-    on_attach=on_attach,
-    capabilities=lsp_status.capabilities,
-    default_config = {
-      cmd = {'graphql-lsp', 'server', '-m', 'stream'},
-      filetypes = {'graphql'},
-      root_dir = nvim_lsp.util.root_pattern('.git', '.graphqlrc'),
-    }
-})
-EOF
-
-sign define LspDiagnosticsErrorSign text=❌  linehl= texthl=LspDiagnosticsErrorSign numhl=
-sign define LspDiagnosticsWarningSign text=⚠️   linehl= texthl=LspDiagnosticsWarningSign numhl=
-sign define LspDiagnosticsInformationSign text=ℹ️  linehl= texthl=LspDiagnosticsInformationSign numhl=
-sign define LspDiagnosticsHintSign text=⁉️  linehl= texthl=LspDiagnosticsHintSign numhl=
-
-let g:diagnostic_enable_virtual_text = 1
-" Do not show diagnostic in insert mode
-let g:diagnostic_insert_delay = 1
-" End of LSP
 
 " Syntastic
 set statusline+=%#warningmsg#
@@ -291,18 +254,20 @@ let g:syntastic_rust_checkers = ['rustc']
 
 let g:ale_linters = {'rust': ['analyzer']}
 
-" Go lang
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-let g:go_auto_sameids = 0
-let g:go_fmt_command = "goimports"
-let g:go_auto_type_info = 1
+if has('nvim')
+  " Go lang
+  let g:go_highlight_build_constraints = 1
+  let g:go_highlight_extra_types = 1
+  let g:go_highlight_fields = 1
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_structs = 1
+  let g:go_highlight_types = 1
+  let g:go_auto_sameids = 0
+  let g:go_fmt_command = "goimports"
+  let g:go_auto_type_info = 1
+endif
 
 " vim-gist
 let g:gist_clip_command = 'pbcopy'
@@ -311,10 +276,10 @@ let g:gist_post_private = 1
 let g:gist_get_multiplefile = 1
 
 " Write current buffer to scrum server
-command! Scrum execute "%!scrum -u pedro -f"
+command! Scrum execute "%!MANTA_USER=Joyent_Dev /Users/pedropc/work/engdoc/roadmap/bin/scrum -u pedro -f"
 
 " Markdown:
-let g:markdown_fenced_languages = ['javascript', 'python', 'bash=sh', 'go', 'ruby', 'rust', 'graphql']
+let g:markdown_fenced_languages = ['javascript', 'python', 'bash=sh', 'go', 'ruby', 'rust', 'graphql', 'sql']
 
 " Custom completion keys
 " Use TAB and S-TAB to navigate completion options
