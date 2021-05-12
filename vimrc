@@ -103,15 +103,12 @@ call minpac#add('vim-scripts/AutoClose')
 call minpac#add('MarcWeber/vim-addon-mw-utils')
 call minpac#add('tomtom/tlib_vim')
 
-call minpac#add('garbas/vim-snipmate')
-let g:snipMate = { 'snippet_version' : 0 }
+" call minpac#add('garbas/vim-snipmate')
+" let g:snipMate = { 'snippet_version' : 0 }
+
+call minpac#add('SirVer/ultisnips')
 
 call minpac#add('honza/vim-snippets', {'type': 'opt'})
-" Change <tab> to <ctrl+j> to trigger snippets, since the
-" tab is used by YCM
-imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
-smap <C-J> <Plug>snipMateNextOrTrigger
-
 call minpac#add('tpope/vim-fugitive')
 
 ""call minpac#add('Valloric/YouCompleteMe')
@@ -125,9 +122,7 @@ call minpac#add('jparise/vim-graphql')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('vim-airline/vim-airline-themes')
 
-
 if has('nvim')
-  call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
 
   call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
 
@@ -158,6 +153,13 @@ if has('nvim')
   " Telescope.nvim, see lua/plugins/telescope.lua
   lua require('plugins.telescope')
 
+  " Folding
+  call minpac#add("pierreglaser/folding-nvim")
+  packadd folding-nvim
+  " Debug
+  call minpac#add("mfussenegger/nvim-dap")
+  call minpac#add("nvim-telescope/telescope-dap.nvim")
+
   " Set completeopt to have a better completion experience
   " :help completeopt
   " menuone: popup even when there's only one match
@@ -168,8 +170,28 @@ if has('nvim')
   " Avoid showing extra messages when using completion
   set shortmess+=c
 
+  " Use <Tab> and <S-Tab> to navigate through popup menu
+  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  "map <c-p> to manually trigger completion
+  imap <silent> <c-p> <Plug>(completion_trigger)
+
+  " Or you want to use <Tab> as trigger keys
+
+  imap <tab> <Plug>(completion_smart_tab)
+  imap <s-tab> <Plug>(completion_smart_s_tab)
+
+  let g:completion_confirm_key = ""
+  imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
+                 \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
+
+  let g:completion_enable_snippet = 'UltiSnips'
+  " <c-j> is the default value for g:UltiSnipsJumpForwardTrigger
+  " <c-k> is the default value for g:UltiSnipsJumpBackwardTrigger
+
   " Configure LSP
   lua require('lsp')
+  lua require('dbg.go')
 
   sign define LspDiagnosticsErrorSign text=❌  linehl= texthl=LspDiagnosticsErrorSign numhl=
   sign define LspDiagnosticsWarningSign text=⚠️   linehl= texthl=LspDiagnosticsWarningSign numhl=
@@ -267,6 +289,7 @@ if has('nvim')
   let g:go_auto_sameids = 0
   let g:go_fmt_command = "goimports"
   let g:go_auto_type_info = 1
+  let g:go_fold_enable = ['block', 'import', 'varconst', 'package_comment']
 endif
 
 " vim-gist
@@ -284,23 +307,21 @@ let g:markdown_fenced_languages = ['javascript', 'python', 'bash=sh', 'go', 'rub
 " Custom completion keys
 " Use TAB and S-TAB to navigate completion options
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : coc#refresh()
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" Use <cr> to confirm completion
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" To make <cr> select the first completion item and confirm the completion when no item has been selected:
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-" To make coc.nvim format your code on <cr>:
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-" Close the preview window when completion is done.
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+""function! s:check_back_space() abort
+""  let col = col('.') - 1
+""  return !col || getline('.')[col - 1]  =~# '\s'
+""endfunction
+""
+""inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : coc#refresh()
+""inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+""
+""" Use <cr> to confirm completion
+""inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+tnoremap <Esc> <C-\><C-n>
 " Support JSON comments
 autocmd FileType json syntax match Comment +\/\/.\+$+
 au BufNewFile,BufRead Jenkinsfile setf groovy
 
+let mapleader="ç"
+" Caret isn't that handy in a Spanish Keyboard
+map & ^

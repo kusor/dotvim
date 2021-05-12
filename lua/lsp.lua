@@ -7,6 +7,7 @@ local lsp_status = require'lsp-status'
 local on_attach = function(client)
     require'completion'.on_attach(client)
     lsp_status.on_attach(client)
+    require('folding').on_attach()
 end
 
 -- Enable rust_analyzer

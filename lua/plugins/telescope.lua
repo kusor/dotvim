@@ -1,6 +1,7 @@
 local actions = require('telescope.actions')
+local telescope = require('telescope')
 
-require('telescope').setup {
+telescope.setup {
   defaults = {
     file_sorter = require('telescope.sorters').get_fzy_sorter,
 
@@ -17,6 +18,7 @@ require('telescope').setup {
     },
   },
 }
+
 
 -- From https://github.com/mrnugget/vimconfig/blob/master/lua/plugins/telescope.lua
 local map_options = { noremap = true, silent = true, }

@@ -1,0 +1,42 @@
+snippet p
+	fmt.Printf("${1:%s}\\n", ${2:args})${3}
+snippet m
+	func (${1:receiver}) ${2:methodName}(${3:args}) ${4:... } {
+		${5}
+	}
+snippet pmr
+	package main
+
+	import (
+		"fmt"
+		"os"
+	)
+
+	func main() {
+		if err := run(); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+	}
+
+	func run() error {
+		${1:return nil}
+	}
+snippet te
+	func Test${1:functionName}(t *testing.T) {
+		${2}
+	}
+snippet be
+	func Benchmark${1:functionName}(b *testing.B) {
+		${2}
+	}
+snippet s
+	type ${1:name} struct{${2}}
+snippet r
+	return ${0}
+snippet re
+	return err
+snippet rn
+	return nil
+snippet t
+	type ${1:name} ${2}
