@@ -54,3 +54,10 @@ nvim_lsp.graphql.setup({
       root_dir = nvim_lsp.util.root_pattern('.git', '.graphqlrc'),
     }
 })
+
+-- https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#vuels
+nvim_lsp.vls.setup({
+    on_attach=on_attach,
+    capabilities=lsp_status.capabilities,
+})
+
