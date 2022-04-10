@@ -80,6 +80,22 @@ _G.packer_plugins = {
     path = "/Users/pedropc/.config/neovim/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
   },
+  ["nvim-tree.lua"] = {
+    config = { "\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14nvim-tree\frequire\0" },
+    loaded = true,
+    path = "/Users/pedropc/.config/neovim/share/nvim/site/pack/packer/start/nvim-tree.lua",
+    url = "https://github.com/kyazdani42/nvim-tree.lua"
+  },
+  ["nvim-treesitter"] = {
+    loaded = true,
+    path = "/Users/pedropc/.config/neovim/share/nvim/site/pack/packer/start/nvim-treesitter",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
+  ["nvim-treesitter-textobjects"] = {
+    loaded = true,
+    path = "/Users/pedropc/.config/neovim/share/nvim/site/pack/packer/start/nvim-treesitter-textobjects",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
+  },
   ["nvim-web-devicons"] = {
     loaded = true,
     path = "/Users/pedropc/.config/neovim/share/nvim/site/pack/packer/start/nvim-web-devicons",
@@ -94,6 +110,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/pedropc/.config/neovim/share/nvim/site/pack/packer/start/papercolor-theme",
     url = "https://github.com/NLKNguyen/papercolor-theme"
+  },
+  playground = {
+    loaded = true,
+    path = "/Users/pedropc/.config/neovim/share/nvim/site/pack/packer/start/playground",
+    url = "https://github.com/nvim-treesitter/playground"
   },
   ["vim-fugitive"] = {
     loaded = true,
@@ -112,6 +133,10 @@ time([[Defining packer_plugins]], false)
 time([[Config for lualine.nvim]], true)
 try_loadstring("\27LJ\2\nÏ\2\0\0\6\0\21\0\0316\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0004\4\0\0=\4\a\0034\4\0\0=\4\b\0034\4\0\0=\4\t\0035\4\n\0=\4\v\0034\4\0\0=\4\f\0034\4\0\0=\4\r\3=\3\14\0025\3\17\0005\4\15\0005\5\16\0>\5\2\4=\4\t\3=\3\18\0025\3\19\0=\3\20\2B\0\2\1K\0\1\0\15extensions\1\2\0\0\14nvim-tree\rsections\1\0\0\1\0\1\tpath\3\1\1\2\0\0\rfilename\22inactive_sections\14lualine_z\14lualine_y\14lualine_x\1\2\0\0\rlocation\14lualine_c\14lualine_b\14lualine_a\1\0\0\foptions\1\0\0\1\0\1\ntheme\fgruvbox\nsetup\flualine\frequire\0", "config", "lualine.nvim")
 time([[Config for lualine.nvim]], false)
+-- Config for: nvim-tree.lua
+time([[Config for nvim-tree.lua]], true)
+try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14nvim-tree\frequire\0", "config", "nvim-tree.lua")
+time([[Config for nvim-tree.lua]], false)
 if should_profile then save_profiles() end
 
 end)

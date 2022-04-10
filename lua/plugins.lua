@@ -80,6 +80,12 @@ function M.setup()
         end
     }
 
+    -- TreeSitter
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    use {'nvim-treesitter/nvim-treesitter-textobjects'}
+    use {'nvim-treesitter/playground'}
+
+
     if packer_bootstrap then
       print "Restart Neovim required after installation!"
       require("packer").sync()
