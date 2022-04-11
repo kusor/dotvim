@@ -141,6 +141,13 @@ function M.setup()
     }
 
 
+    -- Fuzzy finder, Telescope
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+    }
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
     if packer_bootstrap then
       print "Restart Neovim required after installation!"
       require("packer").sync()
