@@ -82,8 +82,63 @@ function M.setup()
 
     -- TreeSitter
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-    use {'nvim-treesitter/nvim-treesitter-textobjects'}
-    use {'nvim-treesitter/playground'}
+    use {'nvim-treesitter/nvim-treesitter-textobjects', wants = "nvim-treesitter"}
+    use {'nvim-treesitter/playground', wants = "nvim-treesitter"}
+
+    use {
+        'windwp/nvim-autopairs',
+        wants = "nvim-treesitter",
+        module = { "nvim-autopairs.completion.cmp", "nvim-autopairs" },
+        config = function()
+            require("config.autopairs").setup()
+        end,
+    }
+
+    -- Per filetype tab settings
+    use {
+        'FotiadisM/tabset.nvim',
+        config = function()
+            require("config.tabset").setup()
+        end
+    }
+
+    -- Auto tag
+    use {
+        "windwp/nvim-ts-autotag",
+        wants = "nvim-treesitter",
+        event = "InsertEnter",
+        config = function()
+            require("nvim-ts-autotag").setup { enable = true }
+        end,
+    }
+
+    -- End wise
+    use {
+        "RRethy/nvim-treesitter-endwise",
+        wants = "nvim-treesitter",
+        event = "InsertEnter",
+    }
+
+    -- WhichKey
+    use {
+        "folke/which-key.nvim",
+        config = function()
+            require("config.whichkey").setup()
+        end,
+    }
+
+    -- Colorizer
+    use {
+        "norcalli/nvim-colorizer.lua",
+        config = function()
+            require("colorizer").setup()
+        end,
+    }
+
+    -- Folding
+    use {
+        "pierreglaser/folding-nvim",
+    }
 
 
     if packer_bootstrap then

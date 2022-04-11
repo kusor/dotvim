@@ -1,5 +1,28 @@
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    ensure_installed = {
+	"bash",
+	"c",
+	"css",
+	"go",
+	"graphql",
+	"hcl",
+	"html",
+	"http",
+	"javascript",
+	"json",
+	"lua",
+	"make",
+	"python",
+	"regex",
+	"ruby",
+	"rust",
+	"scss",
+	"toml",
+	"typescript",
+	"yaml",
+	"vim",
+	"vue"
+    },
     highlight = {
         enable = true,
         disable = {}

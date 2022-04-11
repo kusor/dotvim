@@ -80,6 +80,15 @@ _G.packer_plugins = {
     path = "/Users/pedropc/.config/neovim/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
   },
+  ["nvim-autopairs"] = {
+    config = { "\27LJ\2\n>\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\21config.autopairs\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/Users/pedropc/.config/neovim/share/nvim/site/pack/packer/opt/nvim-autopairs",
+    url = "https://github.com/windwp/nvim-autopairs",
+    wants = { "nvim-treesitter" }
+  },
   ["nvim-tree.lua"] = {
     config = { "\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14nvim-tree\frequire\0" },
     loaded = true,
@@ -94,7 +103,8 @@ _G.packer_plugins = {
   ["nvim-treesitter-textobjects"] = {
     loaded = true,
     path = "/Users/pedropc/.config/neovim/share/nvim/site/pack/packer/start/nvim-treesitter-textobjects",
-    url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
+    url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+    wants = { "nvim-treesitter" }
   },
   ["nvim-web-devicons"] = {
     loaded = true,
@@ -114,7 +124,8 @@ _G.packer_plugins = {
   playground = {
     loaded = true,
     path = "/Users/pedropc/.config/neovim/share/nvim/site/pack/packer/start/playground",
-    url = "https://github.com/nvim-treesitter/playground"
+    url = "https://github.com/nvim-treesitter/playground",
+    wants = { "nvim-treesitter" }
   },
   ["vim-fugitive"] = {
     loaded = true,
@@ -129,6 +140,35 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+local module_lazy_loads = {
+  ["^nvim%-autopairs"] = "nvim-autopairs",
+  ["^nvim%-autopairs%.completion%.cmp"] = "nvim-autopairs"
+}
+local lazy_load_called = {['packer.load'] = true}
+local function lazy_load_module(module_name)
+  local to_load = {}
+  if lazy_load_called[module_name] then return nil end
+  lazy_load_called[module_name] = true
+  for module_pat, plugin_name in pairs(module_lazy_loads) do
+    if not _G.packer_plugins[plugin_name].loaded and string.match(module_name, module_pat) then
+      to_load[#to_load + 1] = plugin_name
+    end
+  end
+
+  if #to_load > 0 then
+    require('packer.load')(to_load, {module = module_name}, _G.packer_plugins)
+    local loaded_mod = package.loaded[module_name]
+    if loaded_mod then
+      return function(modname) return loaded_mod end
+    end
+  end
+end
+
+if not vim.g.packer_custom_loader_enabled then
+  table.insert(package.loaders, 1, lazy_load_module)
+  vim.g.packer_custom_loader_enabled = true
+end
+
 -- Config for: lualine.nvim
 time([[Config for lualine.nvim]], true)
 try_loadstring("\27LJ\2\nÏ\2\0\0\6\0\21\0\0316\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0004\4\0\0=\4\a\0034\4\0\0=\4\b\0034\4\0\0=\4\t\0035\4\n\0=\4\v\0034\4\0\0=\4\f\0034\4\0\0=\4\r\3=\3\14\0025\3\17\0005\4\15\0005\5\16\0>\5\2\4=\4\t\3=\3\18\0025\3\19\0=\3\20\2B\0\2\1K\0\1\0\15extensions\1\2\0\0\14nvim-tree\rsections\1\0\0\1\0\1\tpath\3\1\1\2\0\0\rfilename\22inactive_sections\14lualine_z\14lualine_y\14lualine_x\1\2\0\0\rlocation\14lualine_c\14lualine_b\14lualine_a\1\0\0\foptions\1\0\0\1\0\1\ntheme\fgruvbox\nsetup\flualine\frequire\0", "config", "lualine.nvim")
