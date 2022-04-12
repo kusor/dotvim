@@ -106,7 +106,6 @@ function M.setup()
     use {
         "windwp/nvim-ts-autotag",
         wants = "nvim-treesitter",
-        event = "InsertEnter",
         config = function()
             require("nvim-ts-autotag").setup { enable = true }
         end,
@@ -115,8 +114,7 @@ function M.setup()
     -- End wise
     use {
         "RRethy/nvim-treesitter-endwise",
-        wants = "nvim-treesitter",
-        event = "InsertEnter",
+        wants = "nvim-treesitter"
     }
 
     -- WhichKey
@@ -140,6 +138,8 @@ function M.setup()
         "pierreglaser/folding-nvim",
     }
 
+    -- Ack for the win!
+    use {'mileszs/ack.vim'}
 
     -- Fuzzy finder, Telescope
     use {
@@ -147,6 +147,57 @@ function M.setup()
         requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
     }
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
+
+    -- LSP and completion
+    use {
+        'neovim/nvim-lspconfig',
+        wants = {"cmp-nvim-lsp", "nvim-lsp-installer", "lsp_signature.nvim"},
+        config = function()
+            require("config.lsp").setup()
+        end,
+        requires = {
+            "williamboman/nvim-lsp-installer",
+            "ray-x/lsp_signature.nvim",
+        },
+    }
+    use { 'nvim-lua/completion-nvim' }
+    -- It used to be nvim-compe, now it's this:
+    use {
+        "hrsh7th/nvim-cmp",
+        config = function()
+            require("config.cmp").setup()
+        end,
+        wants = { "LuaSnip" },
+        requires = {
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-nvim-lua",
+            "ray-x/cmp-treesitter",
+            "hrsh7th/cmp-cmdline",
+            "saadparwaiz1/cmp_luasnip",
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-calc",
+            "f3fora/cmp-spell",
+            "hrsh7th/cmp-emoji",
+            {
+            "L3MON4D3/LuaSnip",
+            wants = "friendly-snippets",
+            config = function()
+                require("config.luasnip").setup()
+            end,
+            },
+            "rafamadriz/friendly-snippets",
+            disable = false,
+        },
+    }
+
+    use {'rust-lang/rust.vim'}
+    use {'simrat39/rust-tools.nvim',
+        config = function()
+            require('rust-tools').setup {}
+        end
+    }
 
     if packer_bootstrap then
       print "Restart Neovim required after installation!"

@@ -7,4 +7,8 @@ function utils.opt(scope, key, value)
     if scope ~= 'o' then scopes['o'][key] = value end
 end
 
+function utils.info(msg, name)
+  vim.notify(msg, vim.log.levels.INFO, { title = name })
+end
+
 return utils
