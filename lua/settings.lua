@@ -31,7 +31,8 @@ utils.opt('o', 'hlsearch', true) -- Highlight matches.
 
 -- Folding
 utils.opt('o', 'foldenable', true)
-utils.opt('o', 'foldmethod', 'syntax')
+utils.opt('o', 'foldmethod', 'expr')
+utils.opt('o', 'foldexpr', "nvim_treesitter#foldexpr()")
 -- Don't autofold anything
 utils.opt('o', 'foldlevel', 100)
 

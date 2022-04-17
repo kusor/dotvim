@@ -133,11 +133,6 @@ function M.setup()
         end,
     }
 
-    -- Folding
-    use {
-        "pierreglaser/folding-nvim",
-    }
-
     -- Ack for the win!
     use {'mileszs/ack.vim'}
 
@@ -192,12 +187,32 @@ function M.setup()
         },
     }
 
-    use {'rust-lang/rust.vim'}
-    use {'simrat39/rust-tools.nvim',
+    -- Rust tools
+    use {
+        "simrat39/rust-tools.nvim",
+        requires = { "nvim-lua/plenary.nvim", "rust-lang/rust.vim" },
+        module = "rust-tools",
+        ft = { "rust" },
         config = function()
-            require('rust-tools').setup {}
-        end
+            require("rust-tools").setup {}
+        end,
     }
+
+
+    -- DAP
+    use { 'mfussenegger/nvim-dap' }
+    use { 'nvim-telescope/telescope-dap.nvim' }
+    require('telescope').load_extension('dap')
+    -- require('dbg.python')
+    -- use { 'mfussenegger/nvim-dap-python' } -- Python
+    use {'theHamsta/nvim-dap-virtual-text'}
+    use {'rcarriga/nvim-dap-ui'}
+    use {'Pocco81/DAPInstall.nvim'}
+
+
+    -- Centerpad focus mode for current buffer, keeps the status line
+    -- and works when you switch tabs
+    use { 'smithbm2316/centerpad.nvim' }
 
     if packer_bootstrap then
       print "Restart Neovim required after installation!"

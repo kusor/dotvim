@@ -39,10 +39,10 @@ local function on_attach(client, bufnr)
   vim.api.nvim_buf_set_option(0, "formatexpr", "v:lua.vim.lsp.formatexpr()")
 
   -- Configure key mappings
-  -- require("config.lsp.keymaps").setup(client, bufnr)
+  require("config.lsp.keymaps").setup(client, bufnr)
 
-  -- Folding
-  require("folding").on_attach()
+  -- Configure highlighting
+  require("config.lsp.highlighter").setup(client)
 end
 
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())

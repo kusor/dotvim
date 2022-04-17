@@ -9,6 +9,8 @@ require("plugins").setup()
 -- (A folder containing an init.lua file can be required directly, without having to specify the name of the file.)
 require("config")
 
+-- Key mappings
+require('keymappings')
 
 function PrintDiagnostics(opts, bufnr, line_nr, client_id)
   bufnr = bufnr or 0
