@@ -35,7 +35,7 @@ vim.cmd [[ autocmd CursorHold * lua PrintDiagnostics() ]]
 
 -- Traditional vim command using lua
 if vim.fn.has "nvim-0.7" then
-  vim.api.nvim_add_user_command('Scrum', "%!MANTA_USER=Joyent_Dev /Users/pedropc/work/engdoc/roadmap/bin/scrum -u pedro -f", {})
+  vim.api.nvim_create_user_command('Scrum', "%!MANTA_USER=Joyent_Dev /Users/pedropc/work/engdoc/roadmap/bin/scrum -u pedro -f", {})
 end
 
 
