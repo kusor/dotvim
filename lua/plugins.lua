@@ -214,6 +214,41 @@ function M.setup()
     -- and works when you switch tabs
     use { 'smithbm2316/centerpad.nvim' }
 
+    -- Zen Mode
+    use {
+        "folke/zen-mode.nvim",
+        config = function()
+            require("zen-mode").setup {
+            }
+        end
+    }
+
+    use {
+        "folke/twilight.nvim",
+        config = function()
+            require("twilight").setup {
+            }
+        end
+    }
+
+    use({
+        "folke/persistence.nvim",
+        event = "BufReadPre", -- this will only start session saving when an actual file was opened
+        module = "persistence",
+        config = function()
+            require("persistence").setup()
+        end,
+    })
+
+    -- playing with local plugins
+    --  use {
+    --      '~/study/neovim-plugins/uppercase.nvim',
+    --      module = "uppercase",
+    --      config = function()
+    --          require("uppercase").setup()
+    --      end
+    --  }
+
     if packer_bootstrap then
       print "Restart Neovim required after installation!"
       require("packer").sync()
