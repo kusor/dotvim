@@ -42,6 +42,22 @@ function M.setup()
       name = "Git",
       s = { "<cmd>Neogit<CR>", "Status" },
     },
+
+    s = {
+      name = "Session",
+      s = { "<cmd>lua require'persistence'.load()<cr>" , "Save" },
+      l = { "<cmd>lua require'persistence'.load({ last = true })<cr>", "Load" },
+      q = { "<cmd>lua require'persistence'.stop()<cr>", "Quit" },
+    },
+
+    n = {
+      name = "NvimTree",
+      t = { "NvimTreeToggle<CR>", "Toggle"},
+      r = { "NvimTreeRefresh<CR>", "Refresh"},
+      f = { "NvimTreeFindFile<CR>", "FindFile"},
+      o = { "NvimTreeOpen<CR>", "Open"},
+      c = { "NvimTreeClose<CR>", "Close"},
+    },
   }
 
   whichkey.setup(conf)
