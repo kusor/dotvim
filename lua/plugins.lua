@@ -249,6 +249,8 @@ function M.setup()
     --      end
     --  }
 
+    use({"gpanders/editorconfig.nvim"})
+
     if packer_bootstrap then
       print "Restart Neovim required after installation!"
       require("packer").sync()
