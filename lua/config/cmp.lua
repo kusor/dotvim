@@ -52,7 +52,7 @@ function M.setup()
     experimental = { native_menu = false, ghost_text = false },
     snippet = {
       expand = function(args)
-        require("luasnip").lsp_expand(args.body)
+        luasnip.lsp_expand(args.body)
       end,
     },
     formatting = {
@@ -139,11 +139,11 @@ function M.setup()
   })
 
   -- Use buffer source for `/`
-  cmp.setup.cmdline("/", {
-    sources = {
-      { name = "buffer" },
-    },
-  })
+  -- cmp.setup.cmdline("/", {
+  --  sources = {
+  --    { name = "buffer" },
+  --  },
+  -- })
 
   -- Use cmdline & path source for ':'
   cmp.setup.cmdline(":", {

@@ -240,6 +240,33 @@ function M.setup()
         end,
     })
 
+
+    -- Golang (vim-go did not play nice with LSP ...)
+    use {
+        'ray-x/go.nvim',
+        config = function()
+            require('go').setup({
+                goimport='gopls',
+                gofmt = 'gopls',
+                max_line_len = 1200,
+                tag_transform = false,
+                test_template = '',
+                test_template_dir = '',
+                comment_placeholder = '' ,
+                verbose = false,
+                lsp_cfg = false,
+                lsp_gofumpt = false,
+                lsp_on_attach = true,
+                gopls_cmd = nil,
+                lsp_diag_hdlr = true,
+                dap_debug = false,
+                dap_debug_keymap = true,
+                dap_debug_gui = true,
+                dap_debug_vt = true,
+            })
+        end
+    }
+
     -- playing with local plugins
     --  use {
     --      '~/study/neovim-plugins/uppercase.nvim',

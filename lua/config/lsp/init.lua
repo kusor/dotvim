@@ -1,7 +1,6 @@
 local M = {}
 
 local servers = {
-  gopls = {},
   html = {},
   jsonls = {},
   pyright = {},
@@ -11,6 +10,10 @@ local servers = {
   vuels = {},
   denols = {},
   terraformls = {}
+}
+
+local goplsserver = {
+    gopls = {},
 }
 
 local luaserver = {
@@ -96,10 +99,28 @@ local rustopts = {
   }
 }
 
+local goplsopts = {
+    on_attach = on_attach;
+    capabilities = capabilities,
+    flags = {
+        debounce_text_changes = 150,
+    },
+    cmd = {"gopls", "serve"};
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true,
+        },
+        staticcheck = true,
+        experimentalWorkspaceModule = true,
+      },
+    };
+}
 
 function M.setup()
   require("config.lsp.installer").setup(luaserver, luaopts)
   require("config.lsp.installer").setup(rustserver, rustopts)
+  require("config.lsp.installer").setup(goplsserver, goplsopts)
   require("config.lsp.installer").setup(servers, opts)
 end
 
