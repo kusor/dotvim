@@ -1,4 +1,4 @@
-require("nvim-tree").setup {}
+-- require("nvim-tree").setup {}
 -- NvimTree remaping
 vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>r', ':NvimTreeRefresh<CR>', { noremap = true, silent = true })

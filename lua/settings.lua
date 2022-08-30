@@ -29,6 +29,9 @@ utils.opt('o', 'showmode', true) -- Display the mode you're in.
 utils.opt('o', 'incsearch', true) --  Highlight matches as you type.
 utils.opt('o', 'hlsearch', true) -- Highlight matches.
 
+-- Autoread
+utils.opt('o', 'autoread', true)
+
 -- Folding
 utils.opt('o', 'foldenable', true)
 utils.opt('o', 'foldmethod', 'expr')
@@ -46,7 +49,7 @@ vim.cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'
 
 -- Golang auto import and format on save
 -- Format on save
--- vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').gofmt() ]], false)
+vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').gofmt() ]], false)
 
 -- Import on save
 vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
