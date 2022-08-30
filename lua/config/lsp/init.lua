@@ -9,7 +9,8 @@ local servers = {
   graphql = {},
   vuels = {},
   denols = {},
-  terraformls = {}
+  terraformls = {},
+  zls = {}
 }
 
 local goplsserver = {

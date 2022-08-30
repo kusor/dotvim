@@ -278,6 +278,8 @@ function M.setup()
 
     use({"gpanders/editorconfig.nvim"})
 
+    use({"ziglang/zig.vim"})
+
     if packer_bootstrap then
       print "Restart Neovim required after installation!"
       require("packer").sync()

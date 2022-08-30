@@ -78,3 +78,6 @@ local fences = {
 vim.g.markdown_fenced_languages = fences
 -- Rust auto rustfmt on save:
 vim.g.rustfmt_autosave = 1
+-- Zig auto fmt on save (is the default):
+vim.g.zig_fmt_autosave = 1
+
