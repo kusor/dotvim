@@ -10,7 +10,9 @@ local servers = {
   vuels = {},
   denols = {},
   terraformls = {},
-  zls = {}
+  zls = {},
+  tailwindcss = {},
+  cssls = {}
 }
 
 local goplsserver = {

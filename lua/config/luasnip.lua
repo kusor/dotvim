@@ -9,6 +9,7 @@ function M.setup()
   }
 
   require("luasnip/loaders/from_vscode").load()
+  require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./snippets" } })
 end
 
 return M
