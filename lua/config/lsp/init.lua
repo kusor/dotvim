@@ -7,7 +7,6 @@ local servers = {
   tsserver = {},
   vimls = {},
   graphql = {},
-  vuels = {},
   denols = {},
   terraformls = {},
   zls = {},
@@ -25,6 +24,10 @@ local luaserver = {
 
 local rustserver = {
   rust_analyzer = {},
+}
+
+local vuels = {
+  vuels = {},
 }
 
 local lsp_signature = require "lsp_signature"
@@ -45,13 +48,13 @@ local function on_attach(client, bufnr)
   vim.api.nvim_buf_set_option(0, "formatexpr", "v:lua.vim.lsp.formatexpr()")
 
   -- Configure key mappings
-  require("config.lsp.keymaps").setup(client, bufnr)
+  require("config.lsp.keymaps").setup(client)
 
   -- Configure highlighting
   require("config.lsp.highlighter").setup(client)
 end
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local opts = {
   on_attach = on_attach,
@@ -120,11 +123,60 @@ local goplsopts = {
     };
 }
 
+local vuelsopts = {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  filetypes = {'vue'},
+  init_options = {
+    config = {
+        css = {},
+        emmet = {},
+        html = {
+        suggest = {}
+        },
+        javascript = {
+        format = {}
+        },
+        stylusSupremacy = {},
+        typescript = {
+        format = {}
+        },
+        vetur = {
+        completion = {
+            autoImport = false,
+            tagCasing = "kebab",
+            useScaffoldSnippets = false
+        },
+        format = {
+            defaultFormatter = {
+            js = "none",
+            ts = "none"
+            },
+            defaultFormatterOptions = {},
+            scriptInitialIndent = false,
+            styleInitialIndent = false
+        },
+        useWorkspaceDependencies = false,
+        validation = {
+            script = false,
+            style = true,
+            template = true
+        }
+      }
+    }
+  }
+}
+
 function M.setup()
   require("config.lsp.installer").setup(luaserver, luaopts)
   require("config.lsp.installer").setup(rustserver, rustopts)
   require("config.lsp.installer").setup(goplsserver, goplsopts)
   require("config.lsp.installer").setup(servers, opts)
+  require("config.lsp.installer").setup(vuels, vuelsopts)
+
 end
 
 return M
