@@ -265,7 +265,6 @@ function M.setup()
                 lsp_gofumpt = false,
                 lsp_on_attach = true,
                 gopls_cmd = nil,
-                lsp_diag_hdlr = true,
                 dap_debug = false,
                 dap_debug_keymap = true,
                 dap_debug_gui = true,

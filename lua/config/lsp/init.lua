@@ -18,10 +18,6 @@ local goplsserver = {
     gopls = {},
 }
 
-local luaserver = {
-  sumneko_lua = {},
-}
-
 local rustserver = {
   rust_analyzer = {},
 }
@@ -61,22 +57,6 @@ local opts = {
   capabilities = capabilities,
   flags = {
     debounce_text_changes = 150,
-  },
-}
-
-
-local luaopts = {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  flags = {
-    debounce_text_changes = 150,
-  },
-  settings = {
-    Lua = {
-        diagnostics = {
-            globals = {'vim'},
-        }
-    }
   },
 }
 
@@ -171,7 +151,6 @@ local vuelsopts = {
 }
 
 function M.setup()
-  require("config.lsp.installer").setup(luaserver, luaopts)
   require("config.lsp.installer").setup(rustserver, rustopts)
   require("config.lsp.installer").setup(goplsserver, goplsopts)
   require("config.lsp.installer").setup(servers, opts)

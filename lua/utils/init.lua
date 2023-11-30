@@ -17,4 +17,8 @@ function utils.info(msg, name)
   vim.notify(msg, vim.log.levels.INFO, { title = name })
 end
 
+function utils.error(msg, name)
+  vim.notify(msg, vim.log.levels.INFO, { title = name })
+end
+
 return utils
