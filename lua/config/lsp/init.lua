@@ -151,11 +151,10 @@ local vuelsopts = {
 }
 
 function M.setup()
-  require("config.lsp.installer").setup(rustserver, rustopts)
-  require("config.lsp.installer").setup(goplsserver, goplsopts)
-  require("config.lsp.installer").setup(servers, opts)
-  require("config.lsp.installer").setup(vuels, vuelsopts)
-
+--  require("config.lsp.installer").setup(rustserver, rustopts)
+--  require("config.lsp.installer").setup(goplsserver, goplsopts)
+--  require("config.lsp.installer").setup(servers, opts)
+--  require("config.lsp.installer").setup(vuels, vuelsopts)
 end
 
 return M

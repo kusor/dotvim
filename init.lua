@@ -4,7 +4,7 @@ vim.g.mapleader = '¡'
 -- Sensible defaults
 require('settings')
 
-require("plugins").setup()
+-- require("plugins").setup()
 
 -- (A folder containing an init.lua file can be required directly, without having to specify the name of the file.)
 require("config")
