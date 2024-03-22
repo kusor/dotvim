@@ -171,7 +171,6 @@ return {
     },
   },
   -- TreeSitter
---[[
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate"
@@ -205,6 +204,7 @@ return {
     "nvim-telescope/telescope-fzf-native.nvim",
     build = 'make'
   },
+--[[
   -- LSP and completion
   {
     "neovim/nvim-lspconfig",
