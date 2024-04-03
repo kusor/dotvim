@@ -204,7 +204,6 @@ return {
     "nvim-telescope/telescope-fzf-native.nvim",
     build = 'make'
   },
---[[
   -- LSP and completion
   {
     "neovim/nvim-lspconfig",
@@ -215,42 +214,50 @@ return {
     dependencies = {
       "williamboman/nvim-lsp-installer",
       "ray-x/lsp_signature.nvim",
-      "cmp-nvim-lsp",
+      "hrsh7th/cmp-nvim-lsp",
       "nvim-lsp-installer",
       "lsp_signature.nvim"
     },
   },
+--[[
+  {
+    "L3MON4D3/LuaSnip",
+    -- follow latest release.
+    version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    -- install jsregexp (optional!).
+    build = "make install_jsregexp",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    config = function()
+        require("config.luasnip").setup()
+    end,
+  },
+]]--
+--[[
+    {
+  "garymjr/nvim-snippets",
+
+    config = function()
+      require("config.plugs.nvimsnippets").setup()
+    end,
+},
+]]--
   {
     "hrsh7th/nvim-cmp",
     config = function()
       require("config.cmp").setup()
     end,
     dependencies = {
-      "LuaSnip",
-      "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-nvim-lua",
-      "ray-x/cmp-treesitter",
       "hrsh7th/cmp-cmdline",
-      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-nvim-lsp",
+--[[
+      "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-calc",
       "f3fora/cmp-spell",
       "hrsh7th/cmp-emoji",
-      {
-        "L3MON4D3/LuaSnip",
-        -- follow latest release.
-        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-        -- install jsregexp (optional!).
-        build = "make install_jsregexp",
-        dependencies = { "friendly-snippets" },
-        config = function()
-          require("config.luasnip").setup()
-        end,
-      },
-      "rafamadriz/friendly-snippets",
-      enabled = true,
+]]--
     },
   },
-]]--
 }

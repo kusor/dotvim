@@ -44,15 +44,15 @@ function M.setup()
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
   end
 
-  local luasnip = require "luasnip"
-  local cmp = require'cmp'
+  -- local luasnip = require "luasnip"
+  local cmp = require "cmp"
 
   cmp.setup({
     completion = { completeopt = "menu,menuone,noinsert", keyword_length = 1 },
     experimental = { native_menu = false, ghost_text = false },
     snippet = {
       expand = function(args)
-        luasnip.lsp_expand(args.body)
+        -- luasnip.lsp_expand(args.body)
       end,
     },
     formatting = {
@@ -62,7 +62,7 @@ function M.setup()
         -- Source
         vim_item.menu = ({
           nvim_lsp = "[LSP]",
-          luasnip = "[Snip]",
+          -- luasnip = "[Snip]",
           buffer = "[Buffer]",
           nvim_lua = "[Lua]",
           treesitter = "[Treesitter]",
@@ -92,8 +92,8 @@ function M.setup()
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
-        elseif luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
+        -- elseif luasnip.expand_or_jumpable() then
+        --   luasnip.expand_or_jump()
         elseif has_words_before() then
           cmp.complete()
         else
@@ -107,8 +107,8 @@ function M.setup()
       ["<S-Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()
-        elseif luasnip.jumpable(-1) then
-          luasnip.jump(-1)
+        -- elseif luasnip.jumpable(-1) then
+        --   luasnip.jump(-1)
         else
           fallback()
         end
@@ -119,13 +119,13 @@ function M.setup()
       }),
     },
     sources = {
-      { name = "nvim_lsp" },
-      { name = "luasnip" },
-      { name = "treesitter" },
-      { name = "buffer" },
-      { name = "nvim_lua" },
-      { name = "path" },
-      { name = "nvim_lsp_signature_help" },
+     { name = "nvim_lsp" },
+     -- { name = "luasnip" },
+     { name = "treesitter" },
+     { name = "buffer" },
+     { name = "nvim_lua" },
+     { name = "path" },
+     { name = "nvim_lsp_signature_help" },
       -- { name = "spell" },
       -- { name = "emoji" },
       -- { name = "calc" },
@@ -153,7 +153,6 @@ function M.setup()
       { name = "cmdline" },
     }),
   })
-
   -- Auto pairs
   local cmp_autopairs = require "nvim-autopairs.completion.cmp"
   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done { map_char = { tex = "" } })
