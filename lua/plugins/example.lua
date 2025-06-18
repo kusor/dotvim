@@ -65,18 +65,27 @@ return {
   --  },
   --},
 
-  -- add pyright to lspconfig
-  -- {
-  --   "neovim/nvim-lspconfig",
-  --   ---@class PluginLspOpts
-  --   opts = {
-  --     ---@type lspconfig.options
-  --     servers = {
-  --       -- pyright will be automatically installed with mason and loaded with lspconfig
-  --       pyright = {},
-  --     },
-  --   },
-  -- },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      autoformat = false,
+    --   servers = {
+    --     "graphql",
+    --   },
+      servers = {
+        gopls = {
+          settings = {
+            gopls= {
+              gofumpt = true
+            }
+          }
+        },
+        rust_analyzer = {
+          mason = false,
+        },
+      }
+    },
+  },
 
   -- add tsserver and setup with typescript.nvim instead of lspconfig
   -- {
@@ -150,6 +159,7 @@ return {
       vim.list_extend(opts.ensure_installed, {
         "tsx",
         "typescript",
+        "graphql",
       })
     end,
   },
@@ -180,6 +190,10 @@ return {
   -- add jsonls and schemastore packages, and setup treesitter for json, json5 and jsonc
   -- { import = "lazyvim.plugins.extras.lang.json" },
 
+  -- golang
+  { import = "plugins" },
+  { import = "lazyvim.plugins.extras.lang.go" },
+
   -- add any tools you want to have installed below
   {
     "williamboman/mason.nvim",
@@ -187,8 +201,21 @@ return {
       ensure_installed = {
         "stylua",
         "shellcheck",
+        "graphql-language-service-cli",
+        "goimports",
+        "gofumpt",
 --         "shfmt",
 --        "flake8",
+      },
+    },
+  },
+
+  {
+  "stevearc/conform.nvim",
+  optional = true,
+    opts = {
+      formatters_by_ft = {
+        go = { "goimports", "gofumpt" },
       },
     },
   },
