@@ -193,7 +193,10 @@ return {
   -- golang
   { import = "plugins" },
   { import = "lazyvim.plugins.extras.lang.go" },
-
+  {
+      "mason-org/mason.nvim",
+      ensure_installed = { "delve" },
+  },
   -- add any tools you want to have installed below
   {
     "williamboman/mason.nvim",
@@ -216,6 +219,68 @@ return {
     opts = {
       formatters_by_ft = {
         go = { "goimports", "gofumpt" },
+      },
+    },
+  },
+  -- Slides
+  {
+  "sotte/presenting.nvim",
+  opts = {
+    -- separator = {
+        -- Separators for different filetypes.
+        -- You can add your own or oberwrite existing ones.
+        -- Note: separators are lua patterns, not regexes.
+    --    markdown = "^-+ ",
+    --  },
+      -- Keep the separator, useful if you're parsing based on headings.
+      -- If you want to parse on a non-heading separator, e.g. `---` set this to false.
+    --  keep_separator = false,
+  },
+  cmd = { "Presenting" },
+  },
+  --- DAP
+  {
+    "mfussenegger/nvim-dap",
+    lazy = true,
+    -- Copied from LazyVim/lua/lazyvim/plugins/extras/dap/core.lua and
+    -- modified.
+    keys = {
+      {
+        "<leader>db",
+        function() require("dap").toggle_breakpoint() end,
+        desc = "Toggle Breakpoint"
+      },
+
+      {
+        "<leader>dc",
+        function() require("dap").continue() end,
+        desc = "Continue"
+      },
+
+      {
+        "<leader>dC",
+        function() require("dap").run_to_cursor() end,
+        desc = "Run to Cursor"
+      },
+
+      {
+        "<leader>dT",
+        function() require("dap").terminate() end,
+        desc = "Terminate"
+      },
+    },
+  },
+  {
+    "leoluz/nvim-dap-go",
+    config = true,
+    dependencies = {
+      "mfussenegger/nvim-dap",
+    },
+    keys = {
+      {
+        "<leader>dt",
+        function() require('dap-go').debug_test() end,
+        desc = "Debug test"
       },
     },
   },
