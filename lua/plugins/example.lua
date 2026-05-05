@@ -74,6 +74,7 @@ return {
     --   },
       servers = {
         gopls = {
+          mason = false,
           settings = {
             gopls= {
               gofumpt = true
@@ -199,14 +200,14 @@ return {
   },
   -- add any tools you want to have installed below
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {
       ensure_installed = {
         "stylua",
         "shellcheck",
         "graphql-language-service-cli",
-        "goimports",
-        "gofumpt",
+--         "goimports",
+--        "gofumpt",
 --         "shfmt",
 --        "flake8",
       },
@@ -223,21 +224,21 @@ return {
     },
   },
   -- Slides
-  {
-  "sotte/presenting.nvim",
-  opts = {
-    -- separator = {
-        -- Separators for different filetypes.
-        -- You can add your own or oberwrite existing ones.
-        -- Note: separators are lua patterns, not regexes.
-    --    markdown = "^-+ ",
-    --  },
-      -- Keep the separator, useful if you're parsing based on headings.
-      -- If you want to parse on a non-heading separator, e.g. `---` set this to false.
-    --  keep_separator = false,
-  },
-  cmd = { "Presenting" },
-  },
+  -- {
+  -- "sotte/presenting.nvim",
+  -- opts = {
+  --   -- separator = {
+  --       -- Separators for different filetypes.
+  --       -- You can add your own or oberwrite existing ones.
+  --       -- Note: separators are lua patterns, not regexes.
+  --   --    markdown = "^-+ ",
+  --   --  },
+  --     -- Keep the separator, useful if you're parsing based on headings.
+  --     -- If you want to parse on a non-heading separator, e.g. `---` set this to false.
+  --   --  keep_separator = false,
+  -- },
+  -- cmd = { "Presenting" },
+  -- },
   --- DAP
   {
     "mfussenegger/nvim-dap",
